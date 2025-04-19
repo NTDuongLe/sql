@@ -1,6 +1,7 @@
 /* ASSIGNMENT 1 */
 /* SECTION 2 */
 
+/* Name: Nguyen Thuy Duong Le */
 
 --SELECT
 /* 1. Write a query that returns everything in the customer table. */
