@@ -43,7 +43,7 @@ Additionally, include a date table.
 
 There are several tools online you can use, I'd recommend [Draw.io](https://www.drawio.com/) or [LucidChart](https://www.lucidchart.com/pages/).
 
-**HINT:** You do not need to create any data for this prompt. This is a conceptual model only. 
+**HINT:** You do not need to create any data for this prompt. This is a logical model (ERD) only. 
 
 #### Prompt 2
 We want to create employee shifts, splitting up the day into morning and evening. Add this to the ERD.
@@ -54,7 +54,36 @@ The store wants to keep customer addresses. Propose two architectures for the CU
 **HINT:** search type 1 vs type 2 slowly changing dimensions. 
 
 ```
-Your answer...
+Answer: 
+(1) Architure 1 for type 1 SCD: overwrite the old data
+
+Before address change
+
+|customer_id | Address                             |Current|Entry_Date         |
+|------------|-------------------------------------|-------|-------------------|
+|1           |55 Bloor Street W.Toronto, ON M4W 1A5|Yes    |2023-04-27 19:01:41|
+
+After address change
+
+|customer_id | Address                             |Current|Entry_Date         |
+|------------|-------------------------------------|-------|-------------------|
+|1           |2300 Yonge Street Toronto, ON M4P 1E4|Yes    |2025-04-27 19:01:41|
+
+(2) Architure 2 for type 2 SCD: retain changes 
+
+Before address change
+
+| customer_id| address_id  | Address                             |Current|Start_Date         |End_date|
+|------------|-------------|-------------------------------------|-------|-------------------|--------|
+|1           |101          |55 Bloor Street W.Toronto, ON M4W 1A5|Yes    |2023-04-27 19:01:41|NULL    |
+
+After address change
+
+| customer_id| address_id  | Address                             |Current|Start_Date         |End_date              |
+|------------|-------------|-------------------------------------|-------|-------------------|----------------------|
+|1           |101          |55 Bloor Street W.Toronto, ON M4W 1A5|No     |2023-04-27 19:01:41|2025-04-27 19:01:41   |
+|1           |102          |2300 Yonge Street Toronto, ON M4P 1E4|Yes    |2025-04-27 19:01:41|NULL                  |
+
 ```
 
 ***
